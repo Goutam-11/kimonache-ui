@@ -22,7 +22,8 @@ interface Pool {
 }
 
 async function createPoolOnServer(pool: Pool) {
-  return apiPost("/pools", pool);
+  const res = await apiPost("/pools", pool);
+  console.log(res)
 }
 
 export default function Pool() {
@@ -66,6 +67,7 @@ export default function Pool() {
     const newPool = { name: poolName.trim(), token0, token1, fee };
 
     try {
+      console.log("createPoolOnServer", newPool);
       await createPoolOnServer(newPool);
       console.log("✅ Pool stored on server");
       mutate();
@@ -164,7 +166,7 @@ export default function Pool() {
               className="w-full p-2 rounded-md bg-muted border border-border"
             >
               {Object.entries(FeeAmount)
-                .filter(([k, v]) => typeof v === "number") // only enum values
+                .filter(([_k, v]) => typeof v === "number") // only enum values
                 .map(([key, value]) => (
                   <option key={value} value={value}>
                     {key} ({value} bps)
