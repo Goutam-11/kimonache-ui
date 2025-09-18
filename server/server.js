@@ -4,7 +4,7 @@ import { ENV } from "./env.js";
 import cors from "cors";
 const app = express()
 const PORT = ENV.PORT || 3000
-
+app.use(express.json());
 app.use(cors());
 
 app.get("/pools", async (req,res) => {
